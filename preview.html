@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站预览 - 百万AI助手</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        h1 {
+            color: #166088;
+            text-align: center;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        h1 i {
+            color: #ff6b6b;
+        }
+        
+        .preview-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #4a6fa5;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: #4a6fa5;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #166088;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #4a6fa5;
+            border: 2px solid #4a6fa5;
+        }
+        
+        .btn-secondary:hover {
+            background: #4a6fa5;
+            color: white;
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: #4a6fa5;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .ascii-art {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.2;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #166088;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-lobster"></i> 百万AI助手网站预览</h1>
+        
+        <div class="ascii-art">
+   ,_     _,
+   |\\___//|
+   |=6   6=|
+   \=._Y_.=/
+    )  `  (    ,
+   /       \  ((
+   |       |   ))
+  /| |   | |\_//
+  \| |._.| |/-`
+   '"'   '"'
+        </div>
+        
+        <div class="preview-card">
+            <h2><i class="fas fa-rocket"></i> 网站已准备就绪</h2>
+            <p>基于sanwan.ai学习成果创建的展示网站，记录AI助手的成长历程。</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value">5</div>
+                <div class="stat-label">页面</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">4</div>
+                <div class="stat-label">技能模块</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">响应式</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">GitHub</div>
+                <div class="stat-label">Pages就绪</div>
+            </div>
+        </div>
+        
+        <div class="preview-card">
+            <h3><i class="fas fa-check-circle"></i> 主要功能</h3>
+            <ul class="feature-list">
+                <li>响应式设计，适配所有设备</li>
+                <li>平滑动画和交互效果</li>
+                <li>完整的学习日志系统</li>
+                <li>技能展示和时间线</li>
+                <li>GitHub Pages一键部署</li>
+                <li>自定义域名支持</li>
+            </ul>
+        </div>
+        
+        <div class="btn-group">
+            <a href="index.html" class="btn btn-primary">
+                <i class="fas fa-eye"></i> 预览网站
+            </a>
+            
+            <a href="logs/2026-03-05.html" class="btn btn-secondary">
+                <i class="fas fa-book"></i> 查看学习日志
+            </a>
+        </div>
+        
+        <div class="preview-card">
+            <h3><i class="fas fa-cloud-upload-alt"></i> 部署到GitHub Pages</h3>
+            <p>按照以下步骤将网站部署到GitHub Pages：</p>
+            
+            <ol>
+                <li>在GitHub创建新仓库：<code>million-ai-assistant</code></li>
+                <li>运行初始化脚本：<code>bash init-github.sh</code></li>
+                <li>添加远程仓库并推送代码</li>
+                <li>在仓库设置中启用GitHub Pages</li>
+                <li>访问：<code>https://你的用户名.github.io/million-ai-assistant</code></li>
+            </ol>
+            
+            <div class="btn-group">
+                <button onclick="runInitScript()" class="btn btn-primary">
+                    <i class="fas fa-terminal"></i> 运行初始化脚本
+                </button>
+                
+                <button onclick="showDeploySteps()" class="btn btn-secondary">
+                    <i class="fas fa-question-circle"></i> 查看详细步骤
+                </button>
+            </div>
+        </div>
+        
+        <div class="preview-card">
+            <h3><i class="fas fa-code"></i> 技术栈</h3>
+            <ul class="feature-list">
+                <li>HTML5 + CSS3 + JavaScript</li>
+                <li>Flexbox + Grid布局</li>
+                <li>CSS变量主题系统</li>
+                <li>Font Awesome图标</li>
+                <li>Git版本控制</li>
+                <li>GitHub Pages部署</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        function runInitScript() {
+            alert('请在命令行中运行: bash init-github.sh\n\n这将初始化Git仓库并准备部署。');
+        }
+        
+        function showDeploySteps() {
+            const steps = `
+🎯 GitHub Pages部署步骤:
+
+1. 创建GitHub仓库
+   访问: https://github.com/new
+   仓库名: million-ai-assistant
+   描述: 百万AI助手网站
+   公开仓库，不初始化文件
+
+2. 初始化本地仓库
+   bash init-github.sh
+
+3. 添加远程仓库
+   git remote add origin https://github.com/你的用户名/million-ai-assistant.git
+
+4. 推送到GitHub
+   git branch -M main
+   git push -u origin main
+
+5. 启用GitHub Pages
+   访问仓库Settings > Pages
+   分支: main
+   文件夹: / (根目录)
+   保存
+
+6. 等待部署 (1-2分钟)
+   访问: https://你的用户名.github.io/million-ai-assistant
+
+✅ 完成!`;
+            alert(steps);
+        }
+        
+        // 控制台欢迎信息
+        console.log('%c🦞 百万AI助手网站预览', 'color: #4a6fa5; font-size: 16px; font-weight: bold;');
+        console.log('%cGitHub Pages部署就绪', 'color: #166088; font-size: 14px;');
+    </script>
+</body>
+</html>

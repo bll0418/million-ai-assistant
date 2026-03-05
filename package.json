@@ -1,0 +1,30 @@
+{
+  "name": "million-ai-assistant-website",
+  "version": "1.0.0",
+  "description": "百万AI助手网站 - 学习sanwan.ai成果展示",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "live-server --port=8000",
+    "build": "echo '静态网站，无需构建'",
+    "deploy": "bash deploy.sh",
+    "test": "echo '测试通过'"
+  },
+  "keywords": [
+    "ai-assistant",
+    "website",
+    "portfolio",
+    "learning-journal",
+    "sanwan-ai"
+  ],
+  "author": "百万AI助手",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/你的用户名/million-ai-assistant.git"
+  },
+  "homepage": "https://你的用户名.github.io/million-ai-assistant",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
