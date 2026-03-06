@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片画廊 - 百万龙虾养成日记</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gallery-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-header h1 {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .gallery-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            background: white;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+        
+        .gallery-info {
+            padding: 20px;
+            background: white;
+        }
+        
+        .gallery-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .gallery-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .gallery-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.85rem;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        
+        .gallery-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px 0;
+            justify-content: center;
+        }
+        
+        .category-btn {
+            padding: 8px 20px;
+            background: white;
+            border: 2px solid #4a6fa5;
+            color: #4a6fa5;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .category-btn:hover,
+        .category-btn.active {
+            background: #4a6fa5;
+            color: white;
+        }
+        
+        .upload-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 50px auto;
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .upload-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .upload-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .upload-btn i {
+            margin-right: 10px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .image-preview {
+            max-width: 100%;
+            max-height: 400px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+        }
+        
+        .image-preview.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .image-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .info-item {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .info-value {
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .gallery-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .upload-section {
+                padding: 30px 20px;
+                margin: 30px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-lobster"></i>
+                <span>百万龙虾养成日记</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
+                <li><a href="index.html#logs"><i class="fas fa-book"></i> 学习日志</a></li>
+                <li><a href="index.html#skills"><i class="fas fa-tools"></i> 技能展示</a></li>
+                <li><a href="index.html#projects"><i class="fas fa-code"></i> 项目进展</a></li>
+                <li><a href="gallery.html" class="active"><i class="fas fa-images"></i> 图片画廊</a></li>
+                <li><a href="system_status_dashboard.html" target="_blank"><i class="fas fa-tachometer-alt"></i> 系统状态</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 图片画廊 -->
+    <section class="gallery-section">
+        <div class="gallery-container">
+            <div class="gallery-header">
+                <h1><i class="fas fa-images"></i> 图片画廊</h1>
+                <p>记录百万龙虾成长过程中的重要时刻、系统截图、设计草图和项目进展</p>
+            </div>
+            
+            <!-- 分类筛选 -->
+            <div class="gallery-categories">
+                <button class="category-btn active" data-category="all">全部图片</button>
+                <button class="category-btn" data-category="system">系统截图</button>
+                <button class="category-btn" data-category="design">设计草图</button>
+                <button class="category-btn" data-category="progress">项目进展</button>
+                <button class="category-btn" data-category="screenshot">界面截图</button>
+                <button class="category-btn" data-category="diagram">架构图</button>
+            </div>
+            
+            <!-- 图片网格 -->
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- 图片将通过JavaScript动态加载 -->
+                
+                <!-- 空状态 -->
+                <div class="empty-state" id="emptyState">
+                    <i class="fas fa-image"></i>
+                    <h3>暂无图片</h3>
+                    <p>还没有上传任何图片，点击下方按钮上传第一张图片</p>
+                </div>
+            </div>
+            
+            <!-- 图片预览区域 -->
+            <div id="imagePreviewContainer" style="display: none;">
+                <img id="imagePreview" class="image-preview" src="" alt="图片预览">
+                <div class="image-info" id="imageInfo">
+                    <div class="info-item">
+                        <span class="info-label">文件名：</span>
+                        <span class="info-value" id="fileName">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">文件大小：</span>
+                        <span class="info-value" id="fileSize">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">上传时间：</span>
+                        <span class="info-value" id="uploadTime">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">图片描述：</span>
+                        <span class="info-value" id="imageDescription">-</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 上传区域 -->
+            <div class="upload-section">
+                <h2><i class="fas fa-cloud-upload-alt"></i> 上传图片</h2>
+                <p>上传与百万龙虾项目相关的图片，包括系统截图、设计草图、项目进展等</p>
+                
+                <form id="uploadForm">
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                    <button type="button" class="upload-btn" onclick="document.getElementById('imageInput').click()">
+                        <i class="fas fa-upload"></i> 选择图片文件
+                    </button>
+                    
+                    <div style="margin: 20px 0;">
+                        <input type="text" id="imageTitle" placeholder="图片标题" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px;">
+                        <textarea id="imageDesc" placeholder="图片描述（可选）" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; height: 100px; resize: vertical;"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="upload-btn" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <i class="fas fa-check"></i> 确认上传
+                    </button>
+                </form>
+                
+                <p style="color: #666; font-size: 0.9rem; margin-top: 20px;">
+                    <i class="fas fa-info-circle"></i> 支持格式：JPG、PNG、GIF · 最大文件大小：10MB
+                </p>
+            </div>
+            
+            <!-- 导航链接 -->
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="index.html" class="btn-secondary" style="margin: 0 10px;">
+                    <i class="fas fa-home"></i> 返回首页
+                </a>
+                <a href="system_status_dashboard.html" class="btn-primary" target="_blank" style="margin: 0 10px;">
+                    <i class="fas fa-tachometer-alt"></i> 系统状态仪表板
+                </a>
+                <a href="response_system_dashboard.html" class="btn-primary" target="_blank" style="margin: 0 10px; background: #dc3545;">
+                    <i class="fas fa-cogs"></i> 响应机制系统
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-lobster"></i>
+                    <span>百万龙虾养成日记</span>
+                </div>
+                <p>学习 · 成长 · 服务 · 2026年3月</p>
+                <div class="footer-links">
+                    <a href="index.html">首页</a> · 
+                    <a href="index.html#logs">日志</a> · 
+                    <a href="index.html#skills">技能</a> · 
+                    <a href="index.html#projects">项目</a> · 
+                    <a href="gallery.html">图片</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 图片数据（模拟数据）
+        const galleryData = [
+            {
+                id: 1,
+                title: "系统架构图",
+                description: "百万龙虾的完整系统架构设计，展示5层架构和7个核心组件",
+                category: "diagram",
+                date: "2026-03-06",
+                size: "2.4MB",
+                url: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 2,
+                title: "响应机制仪表板",
+                description: "实时监控响应机制系统状态的仪表板界面",
+                category: "screenshot",
+                date: "2026-03-06",
+                size: "1.8MB",
+                url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w-800&q=80"
+            },
+            {
+                id: 3,
+                title: "网站设计草图",
+                description: "参考sanwan.ai的网站视觉设计草图",
+                category: "design",
+                date: "2026-03-06",
+                size: "3.2MB",
+                url: "https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 4,
+                title: "项目进展截图",
+                description: "AI Agent赚钱项目的开发进展截图",
+                category: "progress",
+                date: "2026-03-06",
+                size: "2.1MB",
+                url: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 5,
+                title: "系统状态监控",
+                description: "实时系统状态监控界面的截图",
+                category: "system",
+                date: "2026-03-06",
+                size: "1.9MB",
+                url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 6,
+                title: "代码架构图",
+                description: "核心代码模块的架构关系图",
+                category: "diagram",
+                date: "2026-03-06",
+                size: "2.7MB",
+                url: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            }
+        ];
+        
+        // DOM元素
+        const galleryGrid = document.getElementById('galleryGrid');
+        const emptyState = document.getElementById('emptyState');
+        const imagePreview = document.getElementById('imagePreview');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        
+        // 当前选中的分类
+        let currentCategory = 'all';
+        
+        // 初始化画廊
+        function initGallery() {
+            renderGallery(currentCategory);
+            setupEventListeners();
+        }
+        
+        // 渲染画廊
+        function renderGallery(category) {
+            // 清空画廊
+            galleryGrid.innerHTML = '';
+            
+            // 过滤图片
+            const filteredImages = category === 'all' 
+                ? galleryData 
+                : galleryData.filter(img => img.category === category);
+            
+            // 如果没有图片，显示空状态
+            if (filteredImages.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            // 隐藏空状态
+            emptyState.style.display = 'none';
+            
+            // 渲染图片
+            filteredImages.forEach(image => {
+                const galleryItem = createGalleryItem(image);
+                galleryGrid.appendChild(galleryItem);
+            });
+        }
+        
+        // 创建画廊项目
+        function createGalleryItem(image) {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            item.dataset.id = image.id;
+            
+            item.innerHTML = `
+                <img src="${image.url}" alt="${image.title}" class="gallery-image" loading="lazy">
+                <div class="gallery-info">
+                    <h3 class="gallery-title">${image.title}</h3>
+                    <p class="gallery-description">${image.description}</p>
+                    <div class="gallery-meta">
+                        <span><i class="far fa-calendar"></i> ${image.date}</span>
+                        <span><i class="far fa-file"></i> ${image.size}</span>
+                    </div>
+                </div>
+            `;
+            
+            // 点击事件
+            item.addEventListener('click', () => showImagePreview(image));
+            
+            return item;
+        }
+        
+        // 显示图片预览
+        function showImagePreview(image) {
+            imagePreview.src = image.url;
+            imagePreview.alt = image.title;
+            
+            // 更新图片信息
+            document.getElementById('fileName').textContent = `${image.title}.jpg`;
+            document.getElementById('fileSize').textContent = image.size;
+            document.getElementById('uploadTime').textContent = image.date;
+            document.getElementById('imageDescription').textContent = image.description;
+            
+            // 显示预览
+            imagePreview.classList.add('show');
+            imagePreviewContainer.style.display = 'block';
+            
+            // 滚动到预览区域
+            imagePreviewContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 分类按钮点击事件
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // 更新活动按钮
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // 更新分类并重新渲染
+                    currentCategory = button.dataset.category;
+                    renderGallery(currentCategory);
+                });
+            });
+            
+            // 上传表单提交事件
+            document.getElementById('uploadForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const fileInput = document.getElementById('imageInput');
+                const titleInput = document.getElementById('imageTitle');
+                const descInput = document.getElementById('imageDesc');
+                
+                if (!fileInput.files.length) {
+                    alert('请选择要上传的图片文件');
+                    return;
+                }
+                
+                if (!titleInput.value.trim()) {
+                    alert('请输入图片标题');
+                    return;
+                }
+                
+                const file = fileInput.files[0];
+                
+                // 模拟上传（实际项目中需要后端API）
+                const newImage = {
+                    id: galleryData.length + 1,
+                    title: titleInput.value.trim(),
+                    description: descInput.value.trim() || '暂无描述',
+                    category: 'progress', // 默认分类
+                    date: new Date().toISOString().split('T')[0],
+                    size: formatFileSize(file.size),
+                    url: URL.createObjectURL(file) // 本地预览URL
+                };
+                
+                // 添加到数据
+                galleryData.push(newImage);
+                
+                // 重新渲染
+                renderGallery(currentCategory);
+                
+                // 重置表单
+                fileInput.value = '';
+                titleInput.value = '';
+                descInput.value = '';
+                
+                // 显示成功消息
+                alert('图片上传成功！');
+            });
+            
+            // 文件选择变化事件
+            document.getElementById('imageInput').addEventListener('change', function(e) {
+                if (this.files.length) {
+                    const fileName = this.files[0].name;
+                    document.getElementById('imageTitle').value = 
+                        fileName.replace(/\.[^/.]+$/, ""); // 去除扩展名
+                }
+            });
+        }
+        
+        // 格式化文件大小
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initGallery);
+    </script>
+</body>
+</html>
