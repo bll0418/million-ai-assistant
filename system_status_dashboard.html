@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统状态仪表板 - 百万AI助手</title>
+    <style>
+        :root {
+            --healthy-color: #28a745;
+            --warning-color: #ffc107;
+            --error-color: #dc3545;
+            --unknown-color: #6c757d;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #212529;
+            --border-color: #dee2e6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--border-color);
+        }
+        
+        .header h1 {
+            color: #343a40;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #6c757d;
+            font-size: 1.2rem;
+        }
+        
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .summary-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .summary-card.healthy {
+            border-top: 4px solid var(--healthy-color);
+        }
+        
+        .summary-card.warning {
+            border-top: 4px solid var(--warning-color);
+        }
+        
+        .summary-card.error {
+            border-top: 4px solid var(--error-color);
+        }
+        
+        .summary-card.overall {
+            border-top: 4px solid #007bff;
+        }
+        
+        .card-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .card-label {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+        
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .system-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .system-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .system-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        .system-status {
+            font-size: 1.5rem;
+        }
+        
+        .system-details {
+            margin-top: 15px;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: #6c757d;
+        }
+        
+        .detail-value {
+            font-weight: 500;
+        }
+        
+        .problem-list {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .problem-list h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+        
+        .problem-item {
+            padding: 10px;
+            border-bottom: 1px solid #ffeaa7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .problem-item:last-child {
+            border-bottom: none;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .status-healthy {
+            color: var(--healthy-color);
+        }
+        
+        .status-warning {
+            color: var(--warning-color);
+        }
+        
+        .status-error {
+            color: var(--error-color);
+        }
+        
+        .status-unknown {
+            color: var(--unknown-color);
+        }
+        
+        @media (max-width: 768px) {
+            .summary-cards,
+            .systems-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 系统状态仪表板</h1>
+            <div class="subtitle">百万AI助手 - 实时系统监控</div>
+            <div class="subtitle">更新时间: 2026-03-06 15:33:14</div>
+        </div>
+        
+        <div class="summary-cards">
+            <div class="summary-card overall">
+                <div class="card-label">总体健康度</div>
+                <div class="card-value">20.0%</div>
+                <div class="card-label">1/5 个系统健康</div>
+            </div>
+            
+            <div class="summary-card healthy">
+                <div class="card-label">健康系统</div>
+                <div class="card-value">1</div>
+                <div class="card-label">运行正常</div>
+            </div>
+            
+            <div class="summary-card warning">
+                <div class="card-label">警告系统</div>
+                <div class="card-value">0</div>
+                <div class="card-label">需要关注</div>
+            </div>
+            
+            <div class="summary-card error">
+                <div class="card-label">错误系统</div>
+                <div class="card-value">4</div>
+                <div class="card-label">需要修复</div>
+            </div>
+        </div>
+        
+        
+        <div class="problem-list">
+            <h3>⚠️ 需要关注的系统 (4个)</h3>
+            
+            <div class="problem-item">
+                <span>统一响应系统</span>
+                <span class="status-error">ERROR</span>
+            </div>
+             
+            <div class="problem-item">
+                <span>任务状态保存系统</span>
+                <span class="status-error">ERROR</span>
+            </div>
+             
+            <div class="problem-item">
+                <span>实时监控系统</span>
+                <span class="status-error">ERROR</span>
+            </div>
+             
+            <div class="problem-item">
+                <span>心跳监控系统</span>
+                <span class="status-error">ERROR</span>
+            </div>
+            
+        </div>
+        
+        
+        <div class="systems-grid">
+
+            <div class="system-card">
+                <div class="system-header">
+                    <div class="system-name">统一响应系统</div>
+                    <div class="system-status status-error">🔴</div>
+                </div>
+                <div class="system-description">
+                    管理所有响应规则和状态切换
+                </div>
+                <div class="system-details">
+                    <div class="detail-item">
+                        <span class="detail-label">状态</span>
+                        <span class="detail-value status-error">ERROR</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">最后更新</span>
+                        <span class="detail-value">2026-03-06 14:55:41</span>
+                    </div>
+                    
+                <div class="detail-item">
+                    <span class="detail-label">file_age</span>
+                    <span class="detail-value">2253秒前</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">file_size</span>
+                    <span class="detail-value">681字节</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">record_count</span>
+                    <span class="detail-value">4</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">config_missing</span>
+                    <span class="detail-value">配置文件不存在</span>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="system-card">
+                <div class="system-header">
+                    <div class="system-name">任务状态保存系统</div>
+                    <div class="system-status status-error">🔴</div>
+                </div>
+                <div class="system-description">
+                    保存和恢复任务状态，解决重启忘记问题
+                </div>
+                <div class="system-details">
+                    <div class="detail-item">
+                        <span class="detail-label">状态</span>
+                        <span class="detail-value status-error">ERROR</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">最后更新</span>
+                        <span class="detail-value">2026-03-06 14:06:29</span>
+                    </div>
+                    
+                <div class="detail-item">
+                    <span class="detail-label">file_age</span>
+                    <span class="detail-value">5205秒前</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">file_size</span>
+                    <span class="detail-value">659字节</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">keys</span>
+                    <span class="detail-value">['task_id', 'task_name', 'task_description']</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">config_age</span>
+                    <span class="detail-value">3862秒前</span>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="system-card">
+                <div class="system-header">
+                    <div class="system-name">实时监控系统</div>
+                    <div class="system-status status-error">🔴</div>
+                </div>
+                <div class="system-description">
+                    实时检查用户消息，确保及时响应
+                </div>
+                <div class="system-details">
+                    <div class="detail-item">
+                        <span class="detail-label">状态</span>
+                        <span class="detail-value status-error">ERROR</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">最后更新</span>
+                        <span class="detail-value">2026-03-06 14:39:09</span>
+                    </div>
+                    
+                <div class="detail-item">
+                    <span class="detail-label">file_age</span>
+                    <span class="detail-value">3245秒前</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">file_size</span>
+                    <span class="detail-value">247字节</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">keys</span>
+                    <span class="detail-value">['first_entry']</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">config_age</span>
+                    <span class="detail-value">3245秒前</span>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="system-card">
+                <div class="system-header">
+                    <div class="system-name">心跳监控系统</div>
+                    <div class="system-status status-error">🔴</div>
+                </div>
+                <div class="system-description">
+                    定期检查系统状态，防止停止
+                </div>
+                <div class="system-details">
+                    <div class="detail-item">
+                        <span class="detail-label">状态</span>
+                        <span class="detail-value status-error">ERROR</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">最后更新</span>
+                        <span class="detail-value">2026-03-06 14:37:36</span>
+                    </div>
+                    
+                <div class="detail-item">
+                    <span class="detail-label">file_age</span>
+                    <span class="detail-value">3338秒前</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">file_size</span>
+                    <span class="detail-value">107字节</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">record_count</span>
+                    <span class="detail-value">1</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">config_age</span>
+                    <span class="detail-value">3168秒前</span>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="system-card">
+                <div class="system-header">
+                    <div class="system-name">网站更新系统</div>
+                    <div class="system-status status-healthy">🟢</div>
+                </div>
+                <div class="system-description">
+                    更新学习进展到GitHub Pages网站
+                </div>
+                <div class="system-details">
+                    <div class="detail-item">
+                        <span class="detail-label">状态</span>
+                        <span class="detail-value status-healthy">HEALTHY</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">最后更新</span>
+                        <span class="detail-value">2026-03-06 15:29:00</span>
+                    </div>
+                    
+                <div class="detail-item">
+                    <span class="detail-label">file_age</span>
+                    <span class="detail-value">254秒前</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">file_size</span>
+                    <span class="detail-value">19768字节</span>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">config_age</span>
+                    <span class="detail-value">53995秒前</span>
+                </div>
+                
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="footer">
+            <p>📊 监控系统版本: 1.0.0 | 数据更新时间: 2026-03-06 15:33:14</p>
+            <p>📍 百万龙虾养成日记 - 系统监控面板</p>
+            <p>🔗 自动生成，每5分钟更新一次</p>
+        </div>
+    </div>
+
+    <script>
+        // 自动刷新页面（每5分钟）
+        setTimeout(function() {
+            location.reload();
+        }, 5 * 60 * 1000); // 5分钟
+        
+        // 添加点击系统卡片的交互
+        document.querySelectorAll('.system-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const systemName = this.querySelector('.system-name').textContent;
+                alert('系统详情: ' + systemName + '\n点击确定查看详细日志。');
+            });
+            
+            card.style.cursor = 'pointer';
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // 更新页面时间
+        function updatePageTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            const timeElements = document.querySelectorAll('.subtitle:last-child, .footer p:nth-child(2)');
+            timeElements.forEach(el => {
+                if (el.textContent.includes('更新时间')) {
+                    el.textContent = '更新时间: ' + timeString;
+                }
+            });
+        }
+        
+        // 每秒更新一次时间
+        setInterval(updatePageTime, 1000);
+        
+        // 初始更新时间
+        updatePageTime();
+    </script>
+</body>
+</html>
