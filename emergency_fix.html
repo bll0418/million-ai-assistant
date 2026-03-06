@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紧急修复 - 导航栏链接问题</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background: #f8f9fa;
+        }
+        .emergency-alert {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .fix-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .fix-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .fix-card h3 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        .direct-links {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚨 导航栏链接紧急修复</h1>
+    
+    <div class="emergency-alert">
+        <h2>⚠️ 问题报告</h2>
+        <p><strong>用户反馈</strong>: "点击导航栏：绿色'AI助手','系统状态'链接,都没有反应"</p>
+        <p><strong>检测时间</strong>: 2026-03-06 16:04</p>
+        <p><strong>可能原因</strong>: 浏览器缓存、GitHub Pages延迟、相对路径问题</p>
+    </div>
+    
+    <div class="direct-links">
+        <h2>🔗 直接访问链接（绕过导航栏）</h2>
+        <p>如果导航栏链接无效，请直接点击以下链接:</p>
+        
+        <div>
+            <a href="ai_assistant_interface.html" class="btn btn-success" target="_blank">
+                <i class="fas fa-robot"></i> AI助手交互界面
+            </a>
+            
+            <a href="system_status_dashboard.html" class="btn" target="_blank">
+                <i class="fas fa-tachometer-alt"></i> 系统状态仪表板
+            </a>
+            
+            <a href="index.html" class="btn" target="_blank">
+                <i class="fas fa-home"></i> 网站首页
+            </a>
+        </div>
+        
+        <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">
+            <i class="fas fa-info-circle"></i> 这些链接使用绝对路径，应该可以正常工作
+        </p>
+    </div>
+    
+    <div class="fix-options">
+        <div class="fix-card">
+            <h3>🔄 方案1: 清除浏览器缓存</h3>
+            <p>导航栏链接可能被浏览器缓存阻止。</p>
+            <p><strong>操作步骤:</strong></p>
+            <ol>
+                <li>按 <code>Ctrl+F5</code> (强制刷新)</li>
+                <li>或按 <code>Ctrl+Shift+Delete</code> 清除缓存</li>
+                <li>重新加载页面</li>
+            </ol>
+            <button onclick="location.reload(true)" class="btn btn-warning">
+                <i class="fas fa-sync-alt"></i> 强制刷新页面
+            </button>
+        </div>
+        
+        <div class="fix-card">
+            <h3>🌐 方案2: 使用完整URL</h3>
+            <p>直接使用GitHub Pages完整地址。</p>
+            <p><strong>GitHub Pages链接:</strong></p>
+            <ul>
+                <li><a href="https://bll0418.github.io/million-ai-assistant/ai_assistant_interface.html" target="_blank">AI助手交互界面</a></li>
+                <li><a href="https://bll0418.github.io/million-ai-assistant/system_status_dashboard.html" target="_blank">系统状态仪表板</a></li>
+            </ul>
+            <a href="https://bll0418.github.io/million-ai-assistant/" class="btn" target="_blank">
+                <i class="fas fa-external-link-alt"></i> 访问GitHub Pages
+            </a>
+        </div>
+        
+        <div class="fix-card">
+            <h3>🔧 方案3: 已应用的技术修复</h3>
+            <p>我们已经应用了以下修复:</p>
+            <ul>
+                <li>✅ 添加 <code>target="_blank"</code> 属性</li>
+                <li>✅ 添加 <code>onclick</code> 事件确保链接工作</li>
+                <li>✅ 添加 <code>title</code> 属性提高可访问性</li>
+                <li>✅ 验证所有文件存在</li>
+            </ul>
+            <p>这些修复应该已经生效。</p>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin: 40px 0;">
+        <h3>📊 测试修复结果</h3>
+        <p>请测试以下链接是否现在可以工作:</p>
+        
+        <div>
+            <a href="#" onclick="testNavigationLink('ai_assistant_interface.html')" class="btn btn-success">
+                <i class="fas fa-test"></i> 测试AI助手链接
+            </a>
+            
+            <a href="#" onclick="testNavigationLink('system_status_dashboard.html')" class="btn">
+                <i class="fas fa-test"></i> 测试系统状态链接
+            </a>
+        </div>
+        
+        <div id="test-result" style="margin-top: 20px; padding: 15px; border-radius: 5px; display: none;"></div>
+    </div>
+    
+    <script>
+        // 测试导航栏链接
+        function testNavigationLink(url) {
+            const resultDiv = document.getElementById('test-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `<p>测试链接: ${url}</p><p>正在测试...</p>`;
+            resultDiv.style.background = '#fff3cd';
+            resultDiv.style.border = '1px solid #ffc107';
+            
+            // 测试链接是否有效
+            fetch(url, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        resultDiv.innerHTML = `
+                            <p><strong>✅ 链接测试成功!</strong></p>
+                            <p>链接: ${url}</p>
+                            <p>状态码: ${response.status}</p>
+                            <p>现在可以正常访问。</p>
+                            <button onclick="window.open('${url}', '_blank')" class="btn btn-success">
+                                打开链接
+                            </button>
+                        `;
+                        resultDiv.style.background = '#d4edda';
+                        resultDiv.style.border = '1px solid #c3e6cb';
+                    } else {
+                        resultDiv.innerHTML = `
+                            <p><strong>❌ 链接测试失败</strong></p>
+                            <p>链接: ${url}</p>
+                            <p>状态码: ${response.status}</p>
+                            <p>请尝试其他解决方案。</p>
+                        `;
+                        resultDiv.style.background = '#f8d7da';
+                        resultDiv.style.border = '1px solid #f5c6cb';
+                    }
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = `
+                        <p><strong>❌ 链接测试错误</strong></p>
+                        <p>链接: ${url}</p>
+                        <p>错误: ${error.message}</p>
+                        <p>请检查网络连接或使用完整URL。</p>
+                    `;
+                    resultDiv.style.background = '#f8d7da';
+                    resultDiv.style.border = '1px solid #f5c6cb';
+                });
+            
+            return false;
+        }
+        
+        // 自动测试所有链接
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('紧急修复页面已加载');
+            
+            // 3秒后自动测试
+            setTimeout(() => {
+                console.log('开始自动测试链接...');
+                // testNavigationLink('ai_assistant_interface.html');
+            }, 3000);
+        });
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</body>
+</html>

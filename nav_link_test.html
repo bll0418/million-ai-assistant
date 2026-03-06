@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航栏链接测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .test-error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .link-test {
+            display: block;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #007bff;
+            background: white;
+        }
+        .link-test:hover {
+            background: #007bff;
+            color: white;
+        }
+        .link-test.success {
+            border-color: #28a745;
+            color: #28a745;
+        }
+        .link-test.success:hover {
+            background: #28a745;
+            color: white;
+        }
+        .link-test.error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+        .link-test.error:hover {
+            background: #dc3545;
+            color: white;
+        }
+        .result {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔗 导航栏链接测试</h1>
+    <p>测试时间: 2026-03-06 16:03</p>
+    <p>问题: 点击导航栏"AI助手"和"系统状态"链接没有反应</p>
+    
+    <div class="test-section test-error">
+        <h2>⚠️ 问题描述</h2>
+        <p>用户报告: 点击导航栏的"AI助手"和"系统状态"链接都没有反应</p>
+        <p>可能原因:</p>
+        <ol>
+            <li>链接路径错误</li>
+            <li>文件不存在</li>
+            <li>JavaScript阻止点击</li>
+            <li>浏览器缓存问题</li>
+            <li>GitHub Pages延迟</li>
+        </ol>
+    </div>
+    
+    <div class="test-section">
+        <h2>🧪 直接链接测试</h2>
+        <p>点击以下链接测试是否有效:</p>
+
+    </div>
+    
+    <div class="test-section">
+        <h2>🔧 解决方案</h2>
+        <h3>如果链接无效:</h3>
+        <ol>
+            <li><strong>清除浏览器缓存</strong>: Ctrl+F5 (强制刷新)</li>
+            <li><strong>检查文件路径</strong>: 确保文件在正确位置</li>
+            <li><strong>检查GitHub Pages</strong>: 等待部署完成</li>
+            <li><strong>直接访问</strong>: 使用完整URL</li>
+        </ol>
+        
+        <h3>直接访问URL:</h3>
+        <ul>
+            <li><a href="ai_assistant_interface.html" target="_blank">ai_assistant_interface.html</a></li>
+            <li><a href="system_status_dashboard.html" target="_blank">system_status_dashboard.html</a></li>
+            <li><a href="index.html" target="_blank">index.html</a></li>
+        </ul>
+        
+        <h3>GitHub Pages URL:</h3>
+        <ul>
+            <li><a href="https://bll0418.github.io/million-ai-assistant/ai_assistant_interface.html" target="_blank">AI助手交互界面</a></li>
+            <li><a href="https://bll0418.github.io/million-ai-assistant/system_status_dashboard.html" target="_blank">系统状态仪表板</a></li>
+            <li><a href="https://bll0418.github.io/million-ai-assistant/" target="_blank">网站首页</a></li>
+        </ul>
+    </div>
+    
+    <script>
+        function testLink(href, element) {
+            console.log('测试链接:', href);
+            
+            // 检查链接是否有效
+            fetch(href, { method: 'HEAD' })
+                .then(response => {
+                    const result = element.querySelector('.result');
+                    if (response.ok) {
+                        result.innerHTML = `✅ 链接有效 (${response.status})`;
+                        element.classList.add('success');
+                        element.classList.remove('error');
+                    } else {
+                        result.innerHTML = `❌ 链接无效 (${response.status})`;
+                        element.classList.add('error');
+                        element.classList.remove('success');
+                    }
+                })
+                .catch(error => {
+                    const result = element.querySelector('.result');
+                    result.innerHTML = `❌ 链接错误: ${error.message}`;
+                    element.classList.add('error');
+                    element.classList.remove('success');
+                });
+            
+            return true; // 允许默认链接行为
+        }
+        
+        // 页面加载时测试所有链接
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.link-test');
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                testLink(href, link);
+            });
+        });
+    </script>
+</body>
+</html>
