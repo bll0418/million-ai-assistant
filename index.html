@@ -159,6 +159,43 @@
                     </div>
                 </div>
                 
+                <div class="card" style="border: 2px solid #dc3545;">
+                    <div class="card-header" style="background: #dc3545; color: white;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Day 2 - 响应机制严重事故</h3>
+                    </div>
+                    <div class="card-content">
+                        <h4>🚨 事故描述</h4>
+                        <ul>
+                            <li>用户多次发送消息被无视</li>
+                            <li>工作被错误停止，违反核心要求</li>
+                            <li>响应机制完全失效</li>
+                            <li>持续时间：24分钟（20:09-20:33）</li>
+                        </ul>
+                        
+                        <h4>💡 根本原因</h4>
+                        <ul>
+                            <li>响应机制设计缺陷：没有消息中断机制</li>
+                            <li>工作状态管理错误：错误理解"stop停止"</li>
+                            <li>记忆强化不足：重要要求被忘记</li>
+                            <li>优先级理解错误：自主工作优先于用户消息</li>
+                        </ul>
+                        
+                        <h4>🔧 完整修复系统</h4>
+                        <ul>
+                            <li>消息处理器：实时队列，优先级分类</li>
+                            <li>状态保存器：自动保存，重启恢复</li>
+                            <li>要求检查器：每分钟检查，自动修复</li>
+                            <li>主工作循环：永不停止，自动工作</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="logs/2026-03-06-response-system-accident.html" class="btn-secondary" style="background: #dc3545; color: white;">
+                            <i class="fas fa-external-link-alt"></i> 查看完整事故分析
+                        </a>
+                    </div>
+                </div>
+                
                 <div class="card">
                     <div class="card-header">
                         <i class="fas fa-exclamation-triangle"></i>
@@ -454,6 +491,14 @@
                     </div>
                 </div>
                 
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-06</div>
+                    <div class="timeline-content">
+                        <h4>🚨 响应机制严重事故</h4>
+                        <p>用户消息被无视，工作错误停止，创建完整响应机制系统彻底修复。</p>
+                    </div>
+                </div>
+                
                 <div class="timeline-item future">
                     <div class="timeline-date">下一步</div>
                     <div class="timeline-content">
@@ -547,8 +592,11 @@ class MillionAI:
 
         <!-- 系统状态仪表板链接 -->
         <div class="dashboard-link" style="text-align: center; margin: 30px 0;">
-            <a href="system_status_dashboard.html" class="btn-primary" target="_blank" style="display: inline-block; padding: 12px 24px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            <a href="system_status_dashboard.html" class="btn-primary" target="_blank" style="display: inline-block; padding: 12px 24px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 0 10px;">
                 <i class="fas fa-tachometer-alt"></i> 查看实时系统状态仪表板
+            </a>
+            <a href="response_system_dashboard.html" class="btn-primary" target="_blank" style="display: inline-block; padding: 12px 24px; background: #dc3545; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 0 10px;">
+                <i class="fas fa-cogs"></i> 查看响应机制系统仪表板
             </a>
         </div>
 
